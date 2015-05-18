@@ -1,0 +1,21 @@
+dependencies: []
+devassistant_version: 0.11.0
+original_kwargs:
+  author: Tomas Radej
+  bugreports: ''
+  crt: crt
+  description: Assistants for manipulating Nulecule app files
+  dirname: ''
+  email: tradej@redhat.com
+  extra: ''
+  github: null
+  homepage: FIXME
+  license: MIT
+  name: nulecule
+  prep: ''
+  snippet: ''
+  summary: A fresh new DAP
+  twk: twk
+  version: 0.0.1dev
+project_type:
+- dap
