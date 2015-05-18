@@ -1,7 +1,8 @@
 package_name: nulecule
 version: 0.0.1dev
 license: MIT
-summary: A fresh new DAP
-homepage: FIXME
+summary: Nulecule assistants
+homepage: https://github.com/tradej/dap-nulecule
 authors: [Tomas Radej <tradej@redhat.com>]
 description: Assistants for manipulating Nulecule app files
+dependencies: [ common_args, github ]

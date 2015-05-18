@@ -1,1 +1,109 @@
 fullname: nulecule
+
+args:
+    name:
+        use: common_args
+
+    github:
+        use: github
+
+    version:
+        flags: [ -v, --version ]
+        help: Version of the application. Defaults to 0.0.1a
+        default: '0.0.1a'
+
+    author:
+        flags: [ -a, --author ]
+        help: Name of the author (without e-mail)
+
+    email:
+        flags: [ -e, --email ]
+        help: E-mail of the author
+
+    description:
+        flags: [ -d, --description ]
+        help: Description of the app
+
+    specversion:
+        flags: [ -s, --spec ]
+        help: Version of the nulecule spec (defaults to 0.0.2)
+        default: '0.0.2'
+
+    license:
+        flags: [ -l, --license ]
+        help: License under which you want to release the image
+
+    # Providers
+    kubernetes:
+        flags: [ --kubernetes ]
+        help: Add support for Kubernetes
+        action: 'store_true'
+        default: False
+
+files:
+    dockerfile: &dockerfile
+        source: templates/Dockerfile.tpl
+    nulecule: &nulecule
+        source: templates/Nulecule.tpl
+    readme: &readme
+        source: templates/README.md.tpl
+
+run:
+- setup_project_dir:
+    from: $name
+    on_existing: fail
+- cl: cd $contdir/$topdir
+- log_i: Creating Nulecule app $name
+- cl: touch LICENSE
+
+- log_i: Rendering boilerplate files...
+- jinja_render:
+    template: *dockerfile
+    destination: .
+    output: Dockerfile
+    data:
+        author: $author
+        email: $email
+
+- jinja_render:
+    template: *nulecule
+    destination: .
+    output: Nulecule
+    data:
+        author: $author
+        email: $email
+        kubernetes: $kubernetes
+        license: $license
+        name: $name
+        specversion: $specversion
+        version: $version
+
+- $year~: $( date "+%Y" )
+- jinja_render:
+    template: *readme
+    destination: .
+    output: README.md
+    data:
+        author: $author
+        email: $email
+        kubernetes: $kubernetes
+        license: $license
+        name: $name
+        year: $year
+
+
+# Kubernetes
+- if $kubernetes:
+    - cl: mkdir -p artifacts/kubernetes
+    - cl: touch artifacts/kubernetes/$name-pod.yaml
+    - cl: touch artifacts/kubernetes/$name-service.yaml
+
+# Set up git and GitHub
+- use: git.init_add_commit.run
+- if defined $github:
+    - github:
+        do: create_and_push
+        login: $github
+        reponame: $name-app
+
+- log_i: Finished. App can be found in the directory "$contdir/$topdir".
