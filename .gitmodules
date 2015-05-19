@@ -1,0 +1,3 @@
+[submodule "files/extra/nulecule/validate"]
+	path = files/extra/nulecule/validate
+	url = https://github.com/tradej/nulecule_validator.git

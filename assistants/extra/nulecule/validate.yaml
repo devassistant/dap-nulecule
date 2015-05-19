@@ -1,0 +1,41 @@
+fullname: Validate the project according to the Nulecule spec
+
+dependencies:
+    - rpm: [ python3 ]
+
+args:
+    path:
+        use: common_args
+
+files:
+    validator: &validator
+        source: validate.py
+
+run:
+- if defined $path:
+    - cl: cd $path
+
+# Validation
+- log_i: Checking file and directory layout...
+- if not $( test -f Nulecule ):
+    - if $( test -f nulecule ):
+        - log_e: Nulecule file must be named "Nulecule", not "nulecule"
+    - else:
+        - log_e: Nulecule file is missing
+
+- if not $( test -d artifacts -o -d graph):
+    - log_w: No folder named "artifacts" or "graph" seems to be present.
+    - $warnings: True
+
+- if not $( test -f README -o -f README.md -o -f README.rst -o -f README.asciidoc -o -f README.txt -o -f ReadMe ):
+    - log_w: No conventionally named README file seems to be present.
+    - $warnings: True
+
+- log_i: Validating Nulecule file...
+- $version~: $( grep '^specversion:' Nulecule | sed -e 's/specversion://' )
+- cl: python3 *validator --version $version Nulecule
+
+- if defined $warnings:
+    - log_i: Application is valid with warnings
+- else:
+    - log_i: Application is valid
