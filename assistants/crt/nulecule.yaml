@@ -1,4 +1,5 @@
-fullname: nulecule
+fullname: Nulecule
+description: Create an app based on the Nulecule specification (https://github.com/projectatomic/nulecule)
 
 args:
     name:

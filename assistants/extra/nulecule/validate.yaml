@@ -1,4 +1,5 @@
-fullname: Validate the project according to the Nulecule spec
+fullname: Nulecule
+description: Validate the project according to the Nulecule spec
 
 dependencies:
     - rpm: [ python3 ]
