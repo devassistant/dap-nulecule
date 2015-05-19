@@ -56,6 +56,7 @@ run:
 - cl: cd $contdir/$topdir
 - log_i: Creating Nulecule app $name
 - cl: touch LICENSE
+- log_i: $description
 
 - log_i: Rendering boilerplate files...
 - jinja_render:
@@ -72,6 +73,7 @@ run:
     output: Nulecule
     data:
         author: $author
+        description: $description
         email: $email
         kubernetes: $kubernetes
         license: $license
@@ -86,6 +88,7 @@ run:
     output: README.md
     data:
         author: $author
+        description: $description
         email: $email
         kubernetes: $kubernetes
         license: $license
@@ -108,3 +111,4 @@ run:
         reponame: $name-app
 
 - log_i: Finished. App can be found in the directory "$contdir/$topdir".
+- log_i: To validate the Nulecule file after you have made changes, run "da extra nulecule validate"
