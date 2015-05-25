@@ -60,7 +60,6 @@ run:
 - cl: cd $contdir/$topdir
 - log_i: Creating Nulecule app $name
 - cl: touch LICENSE
-- log_i: $description
 
 - log_i: Rendering boilerplate files...
 - jinja_render:
@@ -70,6 +69,7 @@ run:
     data:
         author: $author
         email: $email
+        specversion: $specversion
 
 - jinja_render:
     template: *nulecule
