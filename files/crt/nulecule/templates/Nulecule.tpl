@@ -5,7 +5,9 @@ id: {{ name }}-app
 metadata:
   name: {{ name }}
   appversion: {{ version }}
+  {% if description %}
   description: {{ description }}
+  {% endif %}
   {% if license %}
   license:
     name: {{ license }}
