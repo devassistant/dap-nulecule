@@ -2,7 +2,7 @@ fullname: Nulecule
 description: Validate the project according to the Nulecule spec
 
 dependencies:
-    - rpm: [ python3 ]
+    - rpm: [ python3, python3-jsonschema ]
 
 args:
     path:
