@@ -16,14 +16,17 @@ args:
     author:
         flags: [ -a, --author ]
         help: Name of the author (without e-mail)
+        default: ''
 
     email:
         flags: [ -e, --email ]
         help: E-mail of the author
+        default: ''
 
     description:
         flags: [ -d, --description ]
         help: Description of the app
+        default: ''
 
     specversion:
         flags: [ -s, --spec ]
@@ -33,6 +36,7 @@ args:
     license:
         flags: [ -l, --license ]
         help: License under which you want to release the image
+        default: ''
 
     # Providers
     kubernetes:
