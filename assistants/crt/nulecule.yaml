@@ -15,12 +15,12 @@ args:
 
     author:
         flags: [ -a, --author ]
-        help: Name of the author (without e-mail)
+        help: Name of the author (will be taken from git config if empty)
         default: ''
 
     email:
         flags: [ -e, --email ]
-        help: E-mail of the author
+        help: E-mail of the author (will be taken from git config if empty)
         default: ''
 
     description:
@@ -60,6 +60,11 @@ run:
 - cl: cd $contdir/$topdir
 - log_i: Creating Nulecule app $name
 - cl: touch LICENSE
+
+- if not $author:
+    - $author~: $( git config --global user.name )
+- if not $email:
+    - $email~: $( git config --global user.email )
 
 - log_i: Rendering boilerplate files...
 - jinja_render:
