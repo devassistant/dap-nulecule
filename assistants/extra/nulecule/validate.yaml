@@ -2,6 +2,9 @@ fullname: Nulecule
 description: Validate the project according to the Nulecule spec
 
 dependencies:
+- if $( test "$(grep '^NAME=' /etc/*-release | sed -e 's/.*=//')" == 'CentOS Linux' ):
+    - rpm: [ python34 ]
+- if $( test "$(grep '^NAME=' /etc/*-release | sed -e 's/.*=//')" == 'Fedora' ):
     - rpm: [ python3, python3-jsonschema ]
 
 args:
